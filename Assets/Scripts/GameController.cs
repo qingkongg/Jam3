@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
     public float CD = 3;//落地后三秒产生下一个
 
 
-    private static bool m_isfallen = false;
+    public static bool m_isfallen = false;
     private float m_timer = 0;
     void Start()
     {
