@@ -33,10 +33,10 @@ public class GroupController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             transform.Rotate(0, 0, -90);
-            position1.transform.Rotate(0, 0, -90);
-            position2.transform.Rotate(0, 0, -90);
-            position3.transform.Rotate(0, 0, -90);
-            position4.transform.Rotate(0, 0, -90);
+            position1.transform.Rotate(0, 0, 90);
+            position2.transform.Rotate(0, 0, 90);
+            position3.transform.Rotate(0, 0, 90);
+            position4.transform.Rotate(0, 0, 90);
         }
     }
 
