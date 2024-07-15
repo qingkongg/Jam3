@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
     public float CD = 3;//落地后三秒产生下一个
 
 
-    public static bool m_isfallen = false;
+    public static bool Isfallen = false;
     private float m_timer = 0;
     void Start()
     {
@@ -76,13 +76,13 @@ public class GameController : MonoBehaviour
     void Update()
     {
         //上一个已经落地
-        if (m_isfallen)
+        if (Isfallen)
         {
             m_timer += Time.deltaTime;
             if(m_timer >= CD)//到达CD
             {
                 RandomGenerateBlock();
-                m_isfallen=false;
+                Isfallen=false;
                 m_timer=0;
             }
         }
