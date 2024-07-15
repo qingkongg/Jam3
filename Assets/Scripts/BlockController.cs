@@ -15,10 +15,11 @@ public class BlockController : MonoBehaviour
     public Sprite[] SpritePurple;
     // Start is called before the first frame update
 
-    private int colorindex = Random.Range(1, 4);
+    private int colorindex;
     public ColorState Color;
     void Start()
     {
+        colorindex = Random.Range(1, 4);
         //初始化随机颜色
         MySpriteRenderer = GetComponent<SpriteRenderer>();
         Color = (ColorState)colorindex;
