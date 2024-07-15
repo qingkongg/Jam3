@@ -10,6 +10,10 @@ public class GroupController : MonoBehaviour
     public GameObject position3;
     public GameObject position4;
 
+    public float FallCD = 1;
+
+    private float m_theLastFall = 0;
+
     bool m_isActive = true;
     void Start()
     {
@@ -19,6 +23,22 @@ public class GroupController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        m_theLastFall += Time.deltaTime;
+        if(m_theLastFall >= FallCD)
+        {
+            m_theLastFall = 0;
+            transform.position += Vector3.down;
+            if (IsValidPos())
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                transform.position -= Vector3.down;
+                GameController.Isfallen = true;
+                m_isActive = false;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.A) && m_isActive)
         {
             transform.position += Vector3.left;
