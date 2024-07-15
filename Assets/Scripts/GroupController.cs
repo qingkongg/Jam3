@@ -20,23 +20,56 @@ public class GroupController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             transform.position += Vector3.left;
+            if (IsValidPos())
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                transform .position += Vector3.right;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.position += Vector3.right;
+            if (IsValidPos())
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                transform.position -= Vector3.right;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             transform.position += Vector3.down;
+            if (IsValidPos())
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                transform .position -= Vector3.down;
+                GameController.m_isfallen = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
             transform.Rotate(0, 0, -90);
-            position1.transform.Rotate(0, 0, -90);
-            position2.transform.Rotate(0, 0, -90);
-            position3.transform.Rotate(0, 0, -90);
-            position4.transform.Rotate(0, 0, -90);
+            if(IsValidPos())
+            {
+                UpdateGrid();
+                position1.transform.Rotate(0, 0, 90);
+                position2.transform.Rotate(0, 0, 90);
+                position3.transform.Rotate(0, 0, 90);
+                position4.transform.Rotate(0, 0, 90);
+            }
+            else
+            {
+                transform.Rotate(0, 0, 90);
+            }
         }
     }
 
