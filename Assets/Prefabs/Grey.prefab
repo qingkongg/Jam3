@@ -11,11 +11,7 @@ GameObject:
   - component: {fileID: 8905632560045794297}
   - component: {fileID: 6267070958111895155}
   - component: {fileID: 4545851751065694230}
-<<<<<<< Updated upstream
   m_Layer: 1
-=======
-  m_Layer: 0
->>>>>>> Stashed changes
   m_Name: Grey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MySpriteRenderer: {fileID: 0}
-<<<<<<< Updated upstream
   SpriteRed:
   - {fileID: 21300000, guid: 259aecf4125b6e24f97e671b046361b6, type: 3}
   SpriteGreen:
@@ -111,10 +106,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e1b41bb6fa8ab4e489f33afa8c6ff78a, type: 3}
   SpritePurple:
   - {fileID: 21300000, guid: db0d6ff6e8cdb434f880ccfd683fa8fe, type: 3}
-=======
-  SpriteRed: []
-  SpriteGreen: []
-  SpriteCyan: []
-  SpritePurple: []
->>>>>>> Stashed changes
   Color: 0
