@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     public float FallingPositin_Y = 0;
 
     //存放物体
-    public static Transform[,] Grid  = new Transform[rowNum,colNum];
+    public static Transform[,] Grid ;
 
     private List<List<ColorState>> m_GameManager;
     private List<List<bool>> m_CancelManager;
@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
         Y_Offset = Yoffset;
         colNum = Height;
         rowNum = Width;
+        Grid = new Transform[rowNum, colNum];
         //首先初始化删除控制数组和颜色记录（游戏管理）数组
         m_CancelManager = new List<List<bool>>();
         for(int row = 0;row < rowNum; row++)
@@ -102,6 +103,6 @@ public class GameController : MonoBehaviour
 
     public static bool IsInside(Vector2 v)
     {
-        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum && (int)v.y >= Y_Offset);
+        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum -1 && (int)v.y >= Y_Offset);
     }
 }

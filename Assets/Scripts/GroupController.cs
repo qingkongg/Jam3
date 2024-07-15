@@ -100,7 +100,7 @@ public class GroupController : MonoBehaviour
     {
         for (int i = 0; i < GameController.colNum; i++)
         {
-            for (int j = 0; j < GameController.colNum; j++)
+            for (int j = 0; j < GameController.rowNum; j++)
             {
                 if (GameController.Grid[j, i] != null)
                 {
@@ -114,7 +114,7 @@ public class GroupController : MonoBehaviour
         foreach (Transform child in transform)
         {
             Vector2 v = GameController.RoundVec2(child.position);
-            GameController.Grid[(int)v.x, (int)v.y] = child;
+            GameController.Grid[(int)(v.x - GameController.X_Offset), (int)(v.y - GameController.Y_Offset)] = child;
         }
     }
 
@@ -129,7 +129,7 @@ public class GroupController : MonoBehaviour
             }
             else if (GameController.IsInside(pos))
             {
-                if (GameController.Grid[(int)pos.x, (int)pos.y] != null && GameController.Grid[(int)pos.x, (int)pos.y].parent != gameObject.transform)
+                if (GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)] != null && GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)].parent != gameObject.transform)
                 {
                     return false;
                 }
