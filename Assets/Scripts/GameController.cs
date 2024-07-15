@@ -1,0 +1,72 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Colorstate;
+
+public class GameController : MonoBehaviour
+{
+    // Start is called before the first frame update
+    //记录了从起始位置开始的偏移
+    public float X_Offset = 0;
+    public float Y_Offset = 0;
+
+    //记录了每个单元格大小
+    public float Unit_X = 1;
+    public float Unit_Y = 1;
+
+    //记录了场景大小
+    public int rowNum = 10;//列数
+    public int colNum = 10;//行数
+
+    //记录所有要生成方块的数组,生成的位置
+    public GameObject[] FallingBlocks;
+    public float FallingPositin_X = 0;
+    public float FallingPositin_Y = 0;
+
+    private List<List<ColorState>> GameManager;
+    private List<List<bool>> CancelManager;
+
+    //游戏运行的参数
+    private  
+    void Start()
+    {
+        //首先初始化删除控制数组和颜色记录（游戏管理）数组
+        CancelManager = new List<List<bool>>();
+        for(int row = 0;row < rowNum; row++)
+        {
+            List<bool> list = new List<bool>();
+            for(int col = 0;col < colNum; col++)
+            {
+                list.Add(false);
+            }
+            CancelManager.Add(list);
+        }
+
+        GameManager = new List<List<ColorState>>();
+        for (int row = 0; row < rowNum; row++)
+        {
+            List<ColorState> list = new List<ColorState>();
+            for (int col = 0; col < colNum; col++)
+            {
+                list.Add(ColorState.None);
+            }
+            GameManager.Add(list);
+        }
+
+        //开始第一个生成
+        RandomGenerateBlock();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void RandomGenerateBlock()
+    {
+        int index = Random.Range(0,FallingBlocks.Length);
+        Instantiate(FallingBlocks[index],new Vector3(X_Offset+FallingPositin_X,Y_Offset+FallingPositin_Y,0),Quaternion.identity);
+
+    }
+}
