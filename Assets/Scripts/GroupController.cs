@@ -9,6 +9,8 @@ public class GroupController : MonoBehaviour
     public GameObject position2;
     public GameObject position3;
     public GameObject position4;
+
+    bool m_isActive = true;
     void Start()
     {
 
@@ -17,7 +19,7 @@ public class GroupController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && m_isActive)
         {
             transform.position += Vector3.left;
             if (IsValidPos())
@@ -29,7 +31,7 @@ public class GroupController : MonoBehaviour
                 transform .position += Vector3.right;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) && m_isActive)
         {
             transform.position += Vector3.right;
             if (IsValidPos())
@@ -41,7 +43,7 @@ public class GroupController : MonoBehaviour
                 transform.position -= Vector3.right;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S)&& m_isActive)
         {
             transform.position += Vector3.down;
             if (IsValidPos())
@@ -51,11 +53,12 @@ public class GroupController : MonoBehaviour
             else
             {
                 transform .position -= Vector3.down;
-                GameController.m_isfallen = true;
+                GameController.Isfallen = true;
+                m_isActive = false;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && m_isActive)
         {
             transform.Rotate(0, 0, -90);
             if(IsValidPos())
