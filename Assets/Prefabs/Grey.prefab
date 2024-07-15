@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8905632560045794297}
   - component: {fileID: 6267070958111895155}
   - component: {fileID: 4545851751065694230}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Grey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,8 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MySpriteRenderer: {fileID: 0}
-  SpriteRed: []
-  SpriteGreen: []
-  SpriteCyan: []
-  SpritePurple: []
+  SpriteRed:
+  - {fileID: 21300000, guid: 259aecf4125b6e24f97e671b046361b6, type: 3}
+  SpriteGreen:
+  - {fileID: 21300000, guid: bf512e336860cf04692d5c9fb47cfac9, type: 3}
+  SpriteCyan:
+  - {fileID: 21300000, guid: e1b41bb6fa8ab4e489f33afa8c6ff78a, type: 3}
+  SpritePurple:
+  - {fileID: 21300000, guid: db0d6ff6e8cdb434f880ccfd683fa8fe, type: 3}
   Color: 0
