@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
 {
     // Start is called before the first frame update
     //记录了从起始位置开始的偏移
+    public float Xoffset = 0;
+    public float Yoffset = 0;
     public static float X_Offset = 0;
     public static float Y_Offset = 0;
 
@@ -15,6 +17,8 @@ public class GameController : MonoBehaviour
     public float Unit_Y = 1;
 
     //记录了场景大小
+    public int Height = 10;
+    public int Width = 10;
     public static int rowNum = 10;//列数
     public static int colNum = 10;//行数
 
@@ -37,6 +41,10 @@ public class GameController : MonoBehaviour
     private float m_timer = 0;
     void Start()
     {
+        X_Offset = Xoffset;
+        Y_Offset = Yoffset;
+        colNum = Height;
+        rowNum = Width;
         //首先初始化删除控制数组和颜色记录（游戏管理）数组
         m_CancelManager = new List<List<bool>>();
         for(int row = 0;row < rowNum; row++)
