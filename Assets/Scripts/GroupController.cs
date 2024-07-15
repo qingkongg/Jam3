@@ -15,20 +15,20 @@ public class GroupController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            gameObject.transform.position += Vector3.left;
+            transform.position += Vector3.left;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            gameObject.transform.position += Vector3.right;
+            transform.position += Vector3.right;
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            gameObject.transform.position += Vector3.down;
+            transform.position += Vector3.down;
         }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            gameObject.transform.Rotate(0, 0, -90);
+            transform.Rotate(0, 0, -90);
         }
     }
 }
