@@ -15,23 +15,30 @@ public class GameController : MonoBehaviour
     public float Unit_Y = 1;
 
     //记录了场景大小
-    public int rowNum = 10;//列数
-    public int colNum = 10;//行数
+    public static int rowNum = 10;//列数
+    public static int colNum = 10;//行数
 
     //记录所有要生成方块的数组,生成的位置
     public GameObject[] FallingBlocks;
     public float FallingPositin_X = 0;
     public float FallingPositin_Y = 0;
 
-    private List<List<ColorState>> GameManager;
-    private List<List<bool>> CancelManager;
+    //存放物体
+    public static Transform[] Grid ;
+
+    private List<List<ColorState>> m_GameManager;
+    private List<List<bool>> m_CancelManager;
 
     //游戏运行的参数
-    private  
+    public float CD = 3;//落地后三秒产生下一个
+
+
+    private bool m_isfallen = false;
+    private float m_timer = 0;
     void Start()
     {
         //首先初始化删除控制数组和颜色记录（游戏管理）数组
-        CancelManager = new List<List<bool>>();
+        m_CancelManager = new List<List<bool>>();
         for(int row = 0;row < rowNum; row++)
         {
             List<bool> list = new List<bool>();
@@ -39,10 +46,10 @@ public class GameController : MonoBehaviour
             {
                 list.Add(false);
             }
-            CancelManager.Add(list);
+            m_CancelManager.Add(list);
         }
 
-        GameManager = new List<List<ColorState>>();
+        m_GameManager = new List<List<ColorState>>();
         for (int row = 0; row < rowNum; row++)
         {
             List<ColorState> list = new List<ColorState>();
@@ -50,7 +57,7 @@ public class GameController : MonoBehaviour
             {
                 list.Add(ColorState.None);
             }
-            GameManager.Add(list);
+            m_GameManager.Add(list);
         }
 
         //开始第一个生成
@@ -60,7 +67,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //上一个已经落地
+        if (m_isfallen)
+        {
+            m_timer += Time.deltaTime;
+            if(m_timer >= CD)//到达CD
+            {
+                RandomGenerateBlock();
+                m_isfallen=false;
+                m_timer=0;
+            }
+        }
     }
 
     private void RandomGenerateBlock()

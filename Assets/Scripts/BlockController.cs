@@ -19,6 +19,7 @@ public class BlockController : MonoBehaviour
     public ColorState Color;
     void Start()
     {
+        //初始化随机颜色
         MySpriteRenderer = GetComponent<SpriteRenderer>();
         Color = (ColorState)colorindex;
         ChangeSpriteInit();
