@@ -7,9 +7,12 @@ public class GroupController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
 
+    }
+    public GameObject position1;
+    public GameObject position2;
+    public GameObject position3;
+    public GameObject position4;
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +31,11 @@ public class GroupController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            transform.Rotate(0, 0, -90);
+            transform.Rotate(0, 0, 90);
+            position1.transform.Rotate(0, 0, -90);
+            position2.transform.Rotate(0, 0, -90);
+            position3.transform.Rotate(0, 0, -90);
+            position4.transform.Rotate(0, 0, -90);
         }
     }
 }
