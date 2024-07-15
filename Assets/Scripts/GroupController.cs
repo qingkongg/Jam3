@@ -9,7 +9,6 @@ public class GroupController : MonoBehaviour
     public GameObject position2;
     public GameObject position3;
     public GameObject position4;
-    
 
     public float FallCD = 1;
 
@@ -25,7 +24,7 @@ public class GroupController : MonoBehaviour
     void Update()
     {
         m_theLastFall += Time.deltaTime;
-        if(m_theLastFall >= FallCD)
+        if (m_theLastFall >= FallCD)
         {
             m_theLastFall = 0;
             transform.position += Vector3.down;
@@ -49,7 +48,7 @@ public class GroupController : MonoBehaviour
             }
             else
             {
-                transform .position += Vector3.right;
+                transform.position += Vector3.right;
             }
         }
         else if (Input.GetKeyDown(KeyCode.D) && m_isActive)
@@ -64,7 +63,7 @@ public class GroupController : MonoBehaviour
                 transform.position -= Vector3.right;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.S)&& m_isActive)
+        else if (Input.GetKeyDown(KeyCode.S) && m_isActive)
         {
             transform.position += Vector3.down;
             if (IsValidPos())
@@ -73,7 +72,7 @@ public class GroupController : MonoBehaviour
             }
             else
             {
-                transform .position -= Vector3.down;
+                transform.position -= Vector3.down;
                 GameController.Isfallen = true;
                 m_isActive = false;
             }
@@ -82,7 +81,7 @@ public class GroupController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J) && m_isActive)
         {
             transform.Rotate(0, 0, -90);
-            if(IsValidPos())
+            if (IsValidPos())
             {
                 UpdateGrid();
                 position1.transform.Rotate(0, 0, 90);
@@ -139,4 +138,6 @@ public class GroupController : MonoBehaviour
         return true;
     }
 }
+
+
 
