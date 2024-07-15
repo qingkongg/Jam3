@@ -7,8 +7,8 @@ public class GameController : MonoBehaviour
 {
     // Start is called before the first frame update
     //记录了从起始位置开始的偏移
-    public float X_Offset = 0;
-    public float Y_Offset = 0;
+    public static float X_Offset = 0;
+    public static float Y_Offset = 0;
 
     //记录了每个单元格大小
     public float Unit_X = 1;
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     public float FallingPositin_Y = 0;
 
     //存放物体
-    public static Transform[] Grid ;
+    public static Transform[,] Grid  = new Transform[rowNum,colNum];
 
     private List<List<ColorState>> m_GameManager;
     private List<List<bool>> m_CancelManager;
@@ -85,5 +85,15 @@ public class GameController : MonoBehaviour
         int index = Random.Range(0,FallingBlocks.Length);
         Instantiate(FallingBlocks[index],new Vector3(X_Offset+FallingPositin_X,Y_Offset+FallingPositin_Y,0),Quaternion.identity);
 
+    }
+
+    public static Vector2 RoundVec2(Vector2 v)
+    {
+        return new Vector2(Mathf.Round(v.x),Mathf.Round(v.y));
+    }
+
+    public static bool IsInside(Vector2 v)
+    {
+        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum && (int)v.y >= Y_Offset);
     }
 }
