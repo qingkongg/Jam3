@@ -53,6 +53,7 @@ MonoBehaviour:
   position2: {fileID: 3074060991996903926}
   position3: {fileID: 1597837929472025190}
   position4: {fileID: 8752714041163273205}
+  FallCD: 1
 --- !u!60 &7648287222640513576
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -60,7 +61,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8611655354532272182}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

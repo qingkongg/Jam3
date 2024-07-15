@@ -72,7 +72,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917863016883519902}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -126,6 +126,7 @@ MonoBehaviour:
   position2: {fileID: 2004980069436204768}
   position3: {fileID: 8528590574406003525}
   position4: {fileID: 7993006977101248307}
+  FallCD: 1
 --- !u!1001 &750322974425901751
 PrefabInstance:
   m_ObjectHideFlags: 0
