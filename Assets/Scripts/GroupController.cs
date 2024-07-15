@@ -9,6 +9,7 @@ public class GroupController : MonoBehaviour
     public GameObject position2;
     public GameObject position3;
     public GameObject position4;
+    
 
     public float FallCD = 1;
 
