@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GroupController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject position1;
+    public GameObject position2;
+    public GameObject position3;
+    public GameObject position4;
     void Start()
     {
 
@@ -29,6 +33,10 @@ public class GroupController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             transform.Rotate(0, 0, -90);
+            position1.transform.Rotate(0, 0, -90);
+            position2.transform.Rotate(0, 0, -90);
+            position3.transform.Rotate(0, 0, -90);
+            position4.transform.Rotate(0, 0, -90);
         }
     }
 
