@@ -75,7 +75,6 @@ public class GroupController : MonoBehaviour
                 {
                     transform.position -= Vector3.down;
                     GameController.Isfallen = true;
-                    m_isActive = false;
                 }
             }
 
@@ -85,10 +84,7 @@ public class GroupController : MonoBehaviour
                 if (IsValidPos())
                 {
                     UpdateGrid();
-                    position1.transform.Rotate(0, 0, 90);
-                    position2.transform.Rotate(0, 0, 90);
-                    position3.transform.Rotate(0, 0, 90);
-                    position4.transform.Rotate(0, 0, 90);
+
                 }
                 else
                 {
@@ -132,7 +128,7 @@ public class GroupController : MonoBehaviour
             }
             else if (GameController.IsInside(pos))
             {
-                if (GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)] != null && GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)].parent != gameObject.transform)
+                if (GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)] != null && GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)].parent != transform)
                 {
                     return false;
                 }
