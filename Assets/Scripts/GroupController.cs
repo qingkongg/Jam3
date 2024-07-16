@@ -17,12 +17,13 @@ public class GroupController : MonoBehaviour
     bool m_isActive = true;
     void Start()
     {
-
+        GameController.Isfallen = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (m_isActive) { 
         m_theLastFall += Time.deltaTime;
         if (m_theLastFall >= FallCD)
         {
@@ -95,6 +96,7 @@ public class GroupController : MonoBehaviour
             }
         }
     }
+ }       
 
     void UpdateGrid()
     {
@@ -117,6 +119,7 @@ public class GroupController : MonoBehaviour
             GameController.Grid[(int)(v.x - GameController.X_Offset), (int)(v.y - GameController.Y_Offset)] = child;
         }
     }
+    
 
     bool IsValidPos()
     {
