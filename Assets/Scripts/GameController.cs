@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
     private List<List<bool>> m_CancelManager;
 
     //游戏运行的参数
-    public float CD = 3;//落地后三秒产生下一个
+    public float CD = 30;//落地后三秒产生下一个
 
 
     public static bool Isfallen = false;
@@ -79,11 +79,13 @@ public class GameController : MonoBehaviour
         //上一个已经落地
         if (Isfallen)
         {
+            
             m_timer += Time.deltaTime;
             if(m_timer >= CD)//到达CD
             {
                 RandomGenerateBlock();
-                Isfallen=false;
+                Debug.Log("x");
+                Isfallen =false;
                 m_timer=0;
             }
         }
