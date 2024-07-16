@@ -24,79 +24,79 @@ public class GroupController : MonoBehaviour
     void Update()
     {
         if (m_isActive) { 
-        m_theLastFall += Time.deltaTime;
-        if (m_theLastFall >= FallCD)
-        {
-            m_theLastFall = 0;
-            transform.position += Vector3.down;
-            if (IsValidPos())
+            m_theLastFall += Time.deltaTime;
+            if (m_theLastFall >= FallCD)
             {
-                UpdateGrid();
+                m_theLastFall = 0;
+                transform.position += Vector3.down;
+                if (IsValidPos())
+                {
+                    UpdateGrid();
+                }
+                else
+                {
+                    transform.position -= Vector3.down;
+                    GameController.Isfallen = true;
+                    m_isActive = false;
+                }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.A) && m_isActive)
             {
-                transform.position -= Vector3.down;
-                GameController.Isfallen = true;
-                m_isActive = false;
+                transform.position += Vector3.left;
+                if (IsValidPos())
+                {
+                    UpdateGrid();
+                }
+                else
+                {
+                    transform.position += Vector3.right;
+                }
             }
-        }
-        if (Input.GetKeyDown(KeyCode.A) && m_isActive)
-        {
-            transform.position += Vector3.left;
-            if (IsValidPos())
-            {
-                UpdateGrid();
-            }
-            else
+            else if (Input.GetKeyDown(KeyCode.D) && m_isActive)
             {
                 transform.position += Vector3.right;
+                if (IsValidPos())
+                {
+                    UpdateGrid();
+                }
+                else
+                {
+                    transform.position -= Vector3.right;
+                }
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && m_isActive)
-        {
-            transform.position += Vector3.right;
-            if (IsValidPos())
+            else if (Input.GetKeyDown(KeyCode.S) && m_isActive)
             {
-                UpdateGrid();
+                transform.position += Vector3.down;
+                if (IsValidPos())
+                {
+                    UpdateGrid();
+                }
+                else
+                {
+                    transform.position -= Vector3.down;
+                    GameController.Isfallen = true;
+                    m_isActive = false;
+                }
             }
-            else
-            {
-                transform.position -= Vector3.right;
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.S) && m_isActive)
-        {
-            transform.position += Vector3.down;
-            if (IsValidPos())
-            {
-                UpdateGrid();
-            }
-            else
-            {
-                transform.position -= Vector3.down;
-                GameController.Isfallen = true;
-                m_isActive = false;
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.J) && m_isActive)
-        {
-            transform.Rotate(0, 0, -90);
-            if (IsValidPos())
+            if (Input.GetKeyDown(KeyCode.J) && m_isActive)
             {
-                UpdateGrid();
-                position1.transform.Rotate(0, 0, 90);
-                position2.transform.Rotate(0, 0, 90);
-                position3.transform.Rotate(0, 0, 90);
-                position4.transform.Rotate(0, 0, 90);
-            }
-            else
-            {
-                transform.Rotate(0, 0, 90);
+                transform.Rotate(0, 0, -90);
+                if (IsValidPos())
+                {
+                    UpdateGrid();
+                    position1.transform.Rotate(0, 0, 90);
+                    position2.transform.Rotate(0, 0, 90);
+                    position3.transform.Rotate(0, 0, 90);
+                    position4.transform.Rotate(0, 0, 90);
+                }
+                else
+                {
+                    transform.Rotate(0, 0, 90);
+                }
             }
         }
-    }
- }       
+    }       
 
     void UpdateGrid()
     {
