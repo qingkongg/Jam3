@@ -20,8 +20,8 @@ public class BlockController : MonoBehaviour
     void Start()
     {
         colorindex = Random.Range(1, 4);
-        //³õÊ¼»¯Ëæ»úÑÕÉ«
-        MySpriteRenderer = GetComponent<SpriteRenderer>();
+        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+        //MySpriteRenderer = GetComponent<SpriteRenderer>();
         Color = (ColorState)colorindex;
         ChangeSpriteInit();
     }
@@ -32,7 +32,7 @@ public class BlockController : MonoBehaviour
         
     }
 
-    //¸ù¾Ý¶ÔÓ¦ÑÕÉ«¸ü¸Ä³õÊ¼»¯sprite
+    //ï¿½ï¿½ï¿½Ý¶ï¿½Ó¦ï¿½ï¿½É«ï¿½ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½sprite
     void ChangeSpriteInit()
     {
         if(Color == ColorState.Red)

@@ -52,7 +52,7 @@ MonoBehaviour:
   position2: {fileID: 2174996118337287821}
   position3: {fileID: 1307757439173323086}
   position4: {fileID: 2513983192543436284}
-  FallCD: 0.5
+  FallCD: 1
 --- !u!1001 &5072748485530632312
 PrefabInstance:
   m_ObjectHideFlags: 0

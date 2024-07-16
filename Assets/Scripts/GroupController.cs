@@ -22,78 +22,115 @@ public class GroupController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+{
+    if (m_isActive)
     {
-        if (m_isActive) { 
-            m_theLastFall += Time.deltaTime;
-            if (m_theLastFall >= FallCD)
+        m_theLastFall += Time.deltaTime;
+        if (m_theLastFall >= FallCD)
+        {
+            m_theLastFall = 0;
+            Vector3 newPosition = transform.position + Vector3.down;
+            transform.position = newPosition;
+            if (IsValidPos(transform))
             {
-                m_theLastFall = 0;
-                transform.position += Vector3.down;
-                if (IsValidPos())
-                {
-                    UpdateGrid();
-                }
-                else
-                {
-                    transform.position -= Vector3.down;
-                    GameController.Isfallen = true;
-                    m_isActive = false;
-                }
+                UpdateGrid();
             }
-            if (Input.GetKeyDown(KeyCode.A) && m_isActive)
+            else
             {
-                transform.position += Vector3.left;
-                if (IsValidPos())
-                {
-                    UpdateGrid();
-                }
-                else
-                {
-                    transform.position += Vector3.right;
-                }
+                GameController.Isfallen = true;
+                Debug.Log("Isfallen!" + IsValidPos(transform));
+                m_isActive = false;
+                transform.position -= Vector3.down; // revert the position change
             }
-            else if (Input.GetKeyDown(KeyCode.D) && m_isActive)
+        }
+        if (Input.GetKeyDown(KeyCode.A) && m_isActive)
+        {
+            Vector3 newPosition = transform.position + Vector3.left;
+            transform.position = newPosition;
+            if (IsValidPos(transform))
             {
-                transform.position += Vector3.right;
-                if (IsValidPos())
-                {
-                    UpdateGrid();
-                }
-                else
-                {
-                    transform.position -= Vector3.right;
-                }
+                UpdateGrid();
             }
-            else if (Input.GetKeyDown(KeyCode.S) && m_isActive)
+            else
             {
-                transform.position += Vector3.down;
-                if (IsValidPos())
-                {
-                    UpdateGrid();
-                }
-                else
-                {
-                    transform.position -= Vector3.down;
-                    GameController.Isfallen = true;
-                    m_isActive = false;
-                }
+                transform.position -= Vector3.left; // revert the position change
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && m_isActive)
+        {
+            Vector3 newPosition = transform.position + Vector3.right;
+            transform.position = newPosition;
+            if (IsValidPos(transform))
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                transform.position -= Vector3.right; // revert the position change
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.S) && m_isActive)
+        {
+            Vector3 newPosition = transform.position + Vector3.down;
+            transform.position = newPosition;
+            if (IsValidPos(transform))
+            {
+                UpdateGrid();
+            }
+            else
+            {
+                Debug.Log("TriggerDown IsFallen");
+                GameController.Isfallen = true;
+                m_isActive = false;
+                transform.position -= Vector3.down; // revert the position change
+            }
+        }
 
-            if (Input.GetKeyDown(KeyCode.J) && m_isActive)
-            {
-                transform.Rotate(0, 0, -90);
-                if (IsValidPos())
-                {
-                    UpdateGrid();
+        if (Input.GetKeyDown(KeyCode.J) && m_isActive)
+        {
+            // 先保存当前的旋转状态
+            Quaternion originalRotation = transform.rotation;
 
-                }
-                else
+            // 预旋转
+            transform.Rotate(0, 0, -90);
+
+            // 检查旋转后的位置是否有效
+            if (IsValidPos(transform))
+            {
+                // 如果有效，更新网格
+                UpdateGrid();
+            }
+            else
+            {
+                // 如果无效，恢复原来的旋转状态
+                transform.rotation = originalRotation;
+            }
+        }
+    }
+}
+
+    bool IsValidPos(Transform proposedTransform)
+    {
+        foreach (Transform child in proposedTransform)
+        {
+            Vector2 pos = GameController.RoundVec2(child.transform.position + new Vector3(0.1f, 0.1f, 0));
+            Debug.Log("pos" + pos);
+            if (!GameController.IsInside(pos))
+            {
+                Debug.Log("pos" + pos + "is not inside");
+                return false;
+            }
+            else if (GameController.IsInside(pos))
+            {
+                if (GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)] != null && GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)].parent != proposedTransform)
                 {
-                    transform.Rotate(0, 0, 90);
+                    Debug.Log("pos" + pos + "is not null");
+                    return false;
                 }
             }
         }
-    }       
+        return true;
+    }
 
     void UpdateGrid()
     {
@@ -112,30 +149,9 @@ public class GroupController : MonoBehaviour
         }
         foreach (Transform child in transform)
         {
-            Vector2 v = GameController.RoundVec2(child.position);
-            GameController.Grid[Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y)] = child;
+            Vector2 v = GameController.RoundVec2(child.transform.position);
+            GameController.Grid[Mathf.RoundToInt(v.x - GameController.X_Offset), Mathf.RoundToInt(v.y - GameController.Y_Offset)] = child;
         }
-    }
-    
-
-    bool IsValidPos()
-    {
-        foreach (Transform child in transform)
-        {
-            Vector2 pos = GameController.RoundVec2(child.position);
-            if (!GameController.IsInside(pos))
-            {
-                return false;
-            }
-            else if (GameController.IsInside(pos))
-            {
-                if (GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)] != null && GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)].parent != gameObject.transform)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }
 

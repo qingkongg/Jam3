@@ -6,39 +6,39 @@ using Colorstate;
 public class GameController : MonoBehaviour
 {
     // Start is called before the first frame update
-    //¼ÇÂ¼ÁË´ÓÆðÊ¼Î»ÖÃ¿ªÊ¼µÄÆ«ÒÆ
+    //ï¿½ï¿½Â¼ï¿½Ë´ï¿½ï¿½ï¿½Ê¼Î»ï¿½Ã¿ï¿½Ê¼ï¿½ï¿½Æ«ï¿½ï¿½
     public float Xoffset = 0;
     public float Yoffset = 0;
     public static float X_Offset = 0;
     public static float Y_Offset = 0;
 
-    //¼ÇÂ¼ÁËÃ¿¸öµ¥Ôª¸ñ´óÐ¡
+    //ï¿½ï¿½Â¼ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ð¡
     public float Unit_X = 1;
     public float Unit_Y = 1;
 
-    //¼ÇÂ¼ÁË³¡¾°´óÐ¡
+    //ï¿½ï¿½Â¼ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
     public int Height = 10;
     public int Width = 10;
-    public static int rowNum = 9;//ÁÐÊý
-    public static int colNum = 10;//ÐÐÊý
+    public static int rowNum = 9;//ï¿½ï¿½ï¿½ï¿½
+    public static int colNum = 10;//ï¿½ï¿½ï¿½ï¿½
 
-    //¼ÇÂ¼ËùÓÐÒªÉú³É·½¿éµÄÊý×é,Éú³ÉµÄÎ»ÖÃ
+    //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Éµï¿½Î»ï¿½ï¿½
     public GameObject[] FallingBlocks;
     public float FallingPositin_X = 0;
     public float FallingPositin_Y = 0;
 
-    //´æ·ÅÎïÌå
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public static Transform[,] Grid ;
 
     private List<List<ColorState>> m_GameManager;
     private List<List<bool>> m_CancelManager;
 
-    //ÓÎÏ·ÔËÐÐµÄ²ÎÊý
-    public float CD = 30;//ÂäµØºóÈýÃë²úÉúÏÂÒ»¸ö
+    //ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ÐµÄ²ï¿½ï¿½ï¿½
+    public float CD = 30;//ï¿½ï¿½Øºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 
 
     public static bool Isfallen = false;
-    private float m_timer = 0;
+    public float m_timer = 0;
     void Start()
     {
         X_Offset = Xoffset;
@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
         colNum = Height;
         rowNum = Width;
         Grid = new Transform[rowNum, colNum];
-        //Ê×ÏÈ³õÊ¼»¯É¾³ý¿ØÖÆÊý×éºÍÑÕÉ«¼ÇÂ¼£¨ÓÎÏ·¹ÜÀí£©Êý×é
+        //ï¿½ï¿½ï¿½È³ï¿½Ê¼ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         m_CancelManager = new List<List<bool>>();
         for(int row = 0;row < rowNum; row++)
         {
@@ -69,19 +69,19 @@ public class GameController : MonoBehaviour
             m_GameManager.Add(list);
         }
 
-        //¿ªÊ¼µÚÒ»¸öÉú³É
+        //ï¿½ï¿½Ê¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         RandomGenerateBlock();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ÉÏÒ»¸öÒÑ¾­ÂäµØ
+		
+        //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½
         if (Isfallen)
         {
-            
             m_timer += Time.deltaTime;
-            if(m_timer >= CD)//µ½´ïCD
+            if(m_timer >= CD)//ï¿½ï¿½ï¿½ï¿½CD
             {
                 RandomGenerateBlock();
                 Debug.Log("x");
@@ -100,6 +100,7 @@ public class GameController : MonoBehaviour
 
     public static Vector2 RoundVec2(Vector2 v)
     {
+        Debug.Log("From" + v + "to" + Mathf.Round(v.x) + " " + Mathf.Round(v.y));
         return new Vector2(Mathf.Round(v.x),Mathf.Round(v.y));
     }
 
