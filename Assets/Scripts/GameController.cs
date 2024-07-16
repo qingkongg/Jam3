@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     //记录了场景大小
     public int Height = 10;
     public int Width = 10;
-    public static int rowNum = 10;//列数
+    public static int rowNum = 9;//列数
     public static int colNum = 10;//行数
 
     //记录所有要生成方块的数组,生成的位置
@@ -105,6 +105,6 @@ public class GameController : MonoBehaviour
 
     public static bool IsInside(Vector2 v)
     {
-        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum -1 && (int)v.y >= Y_Offset);
+        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum - 1  && (int)v.y >= Y_Offset );
     }
 }
