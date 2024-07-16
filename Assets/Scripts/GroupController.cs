@@ -99,6 +99,11 @@ public class GroupController : MonoBehaviour
             {
                 // 如果有效，更新网格
                 UpdateGrid();
+                // 旋转色块
+                position1.transform.Rotate(0, 0, 90);
+                position2.transform.Rotate(0, 0, 90);
+                position3.transform.Rotate(0, 0, 90);
+                position4.transform.Rotate(0, 0, 90);
             }
             else
             {
