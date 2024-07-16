@@ -85,10 +85,7 @@ public class GroupController : MonoBehaviour
                 if (IsValidPos())
                 {
                     UpdateGrid();
-                    position1.transform.Rotate(0, 0, 90);
-                    position2.transform.Rotate(0, 0, 90);
-                    position3.transform.Rotate(0, 0, 90);
-                    position4.transform.Rotate(0, 0, 90);
+                    
                 }
                 else
                 {

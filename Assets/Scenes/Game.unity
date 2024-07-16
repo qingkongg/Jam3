@@ -264,7 +264,7 @@ MonoBehaviour:
   - {fileID: 2202758974187413943, guid: cea8459d526448d479fb6ff4bdafe789, type: 3}
   FallingPositin_X: 6
   FallingPositin_Y: 22
-  CD: 3
+  CD: 1
 --- !u!4 &573787592
 Transform:
   m_ObjectHideFlags: 0
