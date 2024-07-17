@@ -6,6 +6,7 @@ using static Unity.Collections.AllocatorManager;
 
 public class GameController : MonoBehaviour
 {
+    public AudioClip BlockClear;
     // Start is called before the first frame update
     //��¼�˴���ʼλ�ÿ�ʼ��ƫ��
     public float Xoffset = 0;
@@ -180,6 +181,7 @@ public class GameController : MonoBehaviour
                 if (CancelManager[i, j] == true)
                 {
                     //Debug.Log(i + "," + j);
+                    BlockClear.pl
                     Destroy(Grid[i, j].gameObject);
                     Grid[i, j] = null;
                     //Debug.Log(i + "," + j);
@@ -315,7 +317,6 @@ public class GameController : MonoBehaviour
         {
             if (GameManager[row, col] == GameManager[row, col + 1] && GameManager[row, col] == GameManager[row, col + 2] && GameManager[row, col] == GameManager[row, col + 3])
             {
-                Point += 8;
                 CancelManager[row, col] = true;
                 CancelManager[row, col + 1] = true;
                 CancelManager[row, col + 2] = true;
@@ -323,11 +324,11 @@ public class GameController : MonoBehaviour
                 return true;
             }
         }
-        if (row + 3 < rowNum)
+        else if (row + 3 < rowNum)
         {
             if (GameManager[row, col] == GameManager[row + 1, col] && GameManager[row, col] == GameManager[row + 2, col] && GameManager[row, col] == GameManager[row + 3, col])
             {
-                Point += 8;
+                
                 CancelManager[row, col] = true;
                 CancelManager[row + 1, col] = true;
                 CancelManager[row + 2, col] = true;
