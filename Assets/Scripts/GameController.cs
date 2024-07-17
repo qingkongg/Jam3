@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour
 
     public static bool Isfallen = false;
     public float m_timer = 0;
+
+    private bool m_isClear = false;
     void Start()
     {
         X_Offset = Xoffset;
@@ -88,7 +90,7 @@ public class GameController : MonoBehaviour
                 m_timer=0;
             }
         }
-        updateColor();
+
         detectClear();
         clearGrid();
     }
@@ -102,7 +104,7 @@ public class GameController : MonoBehaviour
 
     public static Vector2 RoundVec2(Vector2 v)
     {
-        Debug.Log("From" + v + "to" + Mathf.Round(v.x) + " " + Mathf.Round(v.y));
+        //Debug.Log("From" + v + "to" + Mathf.Round(v.x) + " " + Mathf.Round(v.y));
         return new Vector2(Mathf.Round(v.x),Mathf.Round(v.y));
     }
 
@@ -118,12 +120,16 @@ public class GameController : MonoBehaviour
         {
             for (int j = 0;j < colNum; j++)
             {
-                if (Grid[i-1,j] == null)
+                if (Grid[i-1,j] == null && Grid[i-1,j] != null)
                 {
+                    //Debug.Log("(" + i + "," + j + "move to" + "(" + (i - 1) + "," + j);
                     Grid[i-1, j] = Grid[i, j];
+                    Vector3 newposition = Grid[i - 1, j].position + Vector3.down;
+                    Grid[i-1,j].position = newposition;
                     Grid[i,j] = null;
                     GameManager[i -1, j] = GameManager[i, j];
                     GameManager[i, j] = ColorState.None;
+                    Debug.Log("(" + i + "," + j + "move to" + "(" + (i - 1) + "," + j);
                 }
             }
         }
@@ -162,12 +168,20 @@ public class GameController : MonoBehaviour
             {
                 if (CancelManager[i,j] == true)
                 {
+                    //Debug.Log(i + "," + j);
                     Destroy(Grid[i,j].gameObject);
                     Grid[i,j] = null ;
+                    //Debug.Log(i + "," + j);
                     GameManager[i, j] = ColorState.None;
                     CancelManager[i,j] = false;
+                    m_isClear = true;
                 }
             }
+        }
+        if (m_isClear)
+        {
+            updateColor();
+            m_isClear=false;
         }
     }
 
@@ -231,8 +245,8 @@ public class GameController : MonoBehaviour
                 Point += PointThree;
             }
             CancelManager[row, col] = true;
-            CancelManager[row + 1, col] = true;
-            CancelManager[row + 2, col] = true;
+            CancelManager[row, col + 1] = true;
+            CancelManager[row, col + 2] = true;
             return true;
         }
         return false;
