@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
                     }
                     Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j-x));
                     Grid[i, j- x] = Grid[i, j];
-                    Vector3 newposition = Grid[i, j- x].position + Vector3.down;
+                    Vector3 newposition = Grid[i, j- x].position + Vector3.down * x;
                     Grid[i,j- x].position = newposition;
                     Grid[i,j] = null;
                     GameManager[i, j- x] = GameManager[i, j];
