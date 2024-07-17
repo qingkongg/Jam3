@@ -7,6 +7,7 @@ using static Unity.Collections.AllocatorManager;
 public class GameController : MonoBehaviour
 {
     public AudioSource BlockClear;
+    public AudioSource BlockFallen;
     // Start is called before the first frame update
     //��¼�˴���ʼλ�ÿ�ʼ��ƫ��
     public float Xoffset = 0;
@@ -223,6 +224,7 @@ public class GameController : MonoBehaviour
         GameManager[i, j - x] = GameManager[i, j];
         GameManager[i, j] = ColorState.None;
         Debug.Log($"({i},{j}) move to ({i},{j - x})");
+        BlockFallen.Play();
     }
 
     private bool detectThree(int row, int col)
