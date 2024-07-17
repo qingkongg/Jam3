@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Colorstate;
+using static Unity.Collections.AllocatorManager;
 
 public class GameController : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class GameController : MonoBehaviour
     //��Ϸ���еĲ���
     public float CD = 30;//��غ����������һ��
 
-    public int Point = 0;
+    public static int Point = 0;
     public int PointThree = 4;
     public int PointFour = 10;
     public int PointFive = 16;
@@ -136,7 +137,9 @@ public class GameController : MonoBehaviour
                     }
                     //Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j - x));
                     StartCoroutine(MoveBlockDown(i, j, x, Grid[i,j]));
+                    Grid[i, j - x] = Grid[i,j];
                     Grid[i, j] = null;
+                    
                     // Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j - x));
                 }
             }
@@ -214,7 +217,7 @@ public class GameController : MonoBehaviour
         }
 
         block.position = targetPosition; // 确保位置最终精确
-        Grid[i, j - x] = block;
+        
         GameManager[i, j - x] = GameManager[i, j];
         GameManager[i, j] = ColorState.None;
         Debug.Log($"({i},{j}) move to ({i},{j - x})");
