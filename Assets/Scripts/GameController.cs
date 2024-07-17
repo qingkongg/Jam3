@@ -6,7 +6,7 @@ using static Unity.Collections.AllocatorManager;
 
 public class GameController : MonoBehaviour
 {
-    public AudioClip BlockClear;
+    public AudioSource BlockClear;
     // Start is called before the first frame update
     //��¼�˴���ʼλ�ÿ�ʼ��ƫ��
     public float Xoffset = 0;
@@ -181,7 +181,7 @@ public class GameController : MonoBehaviour
                 if (CancelManager[i, j] == true)
                 {
                     //Debug.Log(i + "," + j);
-                    BlockClear.pl
+                    BlockClear.Play();
                     Destroy(Grid[i, j].gameObject);
                     Grid[i, j] = null;
                     //Debug.Log(i + "," + j);
