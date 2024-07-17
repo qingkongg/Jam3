@@ -20,8 +20,8 @@ public class GameController : MonoBehaviour
     public float Unit_Y = 1;
 
     //��¼�˳�����С
-    public int Height = 10;
-    public int Width = 10;
+    public int Height;
+    public int Width;
     public static int rowNum;//����
     public static int colNum;//����
 
@@ -141,7 +141,9 @@ public class GameController : MonoBehaviour
                     StartCoroutine(MoveBlockDown(i, j, x, Grid[i,j]));
                     Grid[i, j - x] = Grid[i,j];
                     Grid[i, j] = null;
-                    
+                    GameManager[i, j - x] = GameManager[i, j];
+                    GameManager[i, j] = ColorState.None;
+
                     // Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j - x));
                 }
             }
@@ -221,8 +223,6 @@ public class GameController : MonoBehaviour
 
         block.position = targetPosition; // 确保位置最终精确
         
-        GameManager[i, j - x] = GameManager[i, j];
-        GameManager[i, j] = ColorState.None;
         Debug.Log($"({i},{j}) move to ({i},{j - x})");
         BlockFallen.Play();
     }
@@ -347,7 +347,6 @@ public class GameController : MonoBehaviour
         {
             if (GameManager[row, col] == GameManager[row, col + 1] && GameManager[row, col] == GameManager[row, col + 2] && GameManager[row, col] == GameManager[row, col + 3] && GameManager[row, col] == GameManager[row, col + 4])
             {
-                Point += 20;
                 CancelManager[row, col] = true;
                 CancelManager[row, col + 1] = true;
                 CancelManager[row, col + 2] = true;
@@ -360,7 +359,6 @@ public class GameController : MonoBehaviour
         {
             if (GameManager[row, col] == GameManager[row + 1, col] && GameManager[row, col] == GameManager[row + 2, col] && GameManager[row, col] == GameManager[row + 3, col] && GameManager[row, col] == GameManager[row + 4, col])
             {
-                Point += 20;
                 CancelManager[row, col] = true;
                 CancelManager[row + 1, col] = true;
                 CancelManager[row + 2, col] = true;
