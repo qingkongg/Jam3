@@ -116,20 +116,32 @@ public class GameController : MonoBehaviour
     //如果下方为空，则往下边走
     private void updateColor()
     {
-        for(int i = 1; i < rowNum; i++)
+        for(int i = 0; i < rowNum; i++)
         {
-            for (int j = 0;j < colNum; j++)
+            for (int j = 1;j < colNum; j++)
             {
-                if (Grid[i-1,j] == null && Grid[i-1,j] != null)
+                if (Grid[i,j-1] == null && Grid[i,j] != null)
                 {
-                    //Debug.Log("(" + i + "," + j + "move to" + "(" + (i - 1) + "," + j);
-                    Grid[i-1, j] = Grid[i, j];
-                    Vector3 newposition = Grid[i - 1, j].position + Vector3.down;
-                    Grid[i-1,j].position = newposition;
+                    int x = 1;
+                    while (j - x - 1 >= 0)
+                    {
+                        if (Grid[i, j - 1 - x] == null)
+                        {
+                            x++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j-x));
+                    Grid[i, j- x] = Grid[i, j];
+                    Vector3 newposition = Grid[i, j- x].position + Vector3.down;
+                    Grid[i,j- x].position = newposition;
                     Grid[i,j] = null;
-                    GameManager[i -1, j] = GameManager[i, j];
+                    GameManager[i, j- x] = GameManager[i, j];
                     GameManager[i, j] = ColorState.None;
-                    Debug.Log("(" + i + "," + j + "move to" + "(" + (i - 1) + "," + j);
+                    Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j- x));
                 }
             }
         }
@@ -180,6 +192,7 @@ public class GameController : MonoBehaviour
         }
         if (m_isClear)
         {
+            Debug.Log("Update");
             updateColor();
             m_isClear=false;
         }
