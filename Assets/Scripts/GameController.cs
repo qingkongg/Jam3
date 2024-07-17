@@ -141,9 +141,7 @@ public class GameController : MonoBehaviour
                     StartCoroutine(MoveBlockDown(i, j, x, Grid[i,j]));
                     Grid[i, j - x] = Grid[i,j];
                     Grid[i, j] = null;
-                    GameManager[i, j - x] = GameManager[i, j];
-                    GameManager[i, j] = ColorState.None;
-
+                    
                     // Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j - x));
                 }
             }
@@ -223,6 +221,8 @@ public class GameController : MonoBehaviour
 
         block.position = targetPosition; // 确保位置最终精确
         
+        GameManager[i, j - x] = GameManager[i, j];
+        GameManager[i, j] = ColorState.None;
         Debug.Log($"({i},{j}) move to ({i},{j - x})");
         BlockFallen.Play();
     }
@@ -359,6 +359,7 @@ public class GameController : MonoBehaviour
         {
             if (GameManager[row, col] == GameManager[row + 1, col] && GameManager[row, col] == GameManager[row + 2, col] && GameManager[row, col] == GameManager[row + 3, col] && GameManager[row, col] == GameManager[row + 4, col])
             {
+
                 CancelManager[row, col] = true;
                 CancelManager[row + 1, col] = true;
                 CancelManager[row + 2, col] = true;
