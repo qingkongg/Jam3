@@ -22,8 +22,8 @@ public class GameController : MonoBehaviour
     //��¼�˳�����С
     public int Height = 10;
     public int Width = 10;
-    public static int rowNum = 9;//����
-    public static int colNum = 10;//����
+    public static int rowNum;//����
+    public static int colNum;//����
 
     //��¼����Ҫ���ɷ��������,���ɵ�λ��
     public GameObject[] FallingBlocks;
