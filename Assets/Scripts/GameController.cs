@@ -254,7 +254,7 @@ public class GameController : MonoBehaviour
             Point += PointThree;
             return true;
         }
-        if (detectThreeRow(row, col))
+        else if (detectThreeRow(row, col))
         {
             if (detectThreeCol(row, col))
             {

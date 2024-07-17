@@ -185,7 +185,7 @@ public class GroupController : MonoBehaviour
                         GameController.GameManager[(int)pos.x, (int)pos.y] = colorState;
                         Debug.Log("position" + pos + "is" + colorState);
                     }
-                    else if((int)pos.y >= GameController.rowNum)
+                    else if((int)pos.y >= GameController.colNum)
                     {
                         GameController.GameOver();
                     }
