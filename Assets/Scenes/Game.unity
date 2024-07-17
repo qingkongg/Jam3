@@ -613,7 +613,7 @@ MonoBehaviour:
   Unit_X: 1
   Unit_Y: 1
   Height: 24
-  Width: 100
+  Width: 10
   FallingBlocks:
   - {fileID: 917863016883519902, guid: cbc158c93c84b1c4fbb9bdca51446ecd, type: 3}
   - {fileID: 3544822856876184792, guid: a0acd9c96195b4244b6c48aa8b223844, type: 3}
@@ -624,7 +624,7 @@ MonoBehaviour:
   - {fileID: 2202758974187413943, guid: cea8459d526448d479fb6ff4bdafe789, type: 3}
   FallingPositin_X: 5
   FallingPositin_Y: 20
-  CD: 0.5
+  CD: 1
   PointThree: 4
   PointFour: 10
   PointFive: 16

@@ -63,19 +63,12 @@ public class GameController : MonoBehaviour
             for (int j = 0; j < colNum; j++)
             {
                 CancelManager[i, j] = false;
-            }
-        }
-
-        for (int i = 0; i < rowNum; i++)
-        {
-            for (int j = 0; j < colNum; j++)
-            {
                 GameManager[i, j] = ColorState.None;
             }
         }
-
         RandomGenerateBlock();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -126,27 +119,38 @@ public class GameController : MonoBehaviour
                 if (Grid[i, j - 1] == null && Grid[i, j] != null)
                 {
                     int x = 1;
-                    while (j - x - 1 >= 0)
+                    while (j - x - 1 >= 0 && Grid[i, j - 1 - x] == null)
                     {
-                        if (Grid[i, j - 1 - x] == null)
-                        {
-                            x++;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        x++;
                     }
-                    //Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j - x));
-                    StartCoroutine(MoveBlockDown(i, j, x, Grid[i,j]));
-                    Grid[i, j - x] = Grid[i,j];
+                    StartCoroutine(MoveBlockDown(i, j, x, Grid[i, j]));
+                    Grid[i, j - x] = Grid[i, j];
                     Grid[i, j] = null;
-                    
-                    // Debug.Log("(" + i + "," + j + "move to" + "(" + i + "," + (j - x));
                 }
             }
         }
     }
+
+    private IEnumerator MoveBlockDown(int i, int j, int x, Transform origin)
+    {
+        Transform block = origin;
+        Vector3 targetPosition = block.position + Vector3.down * x;
+        float duration = 0.2f;
+        float elapsedTime = 0;
+
+        while (elapsedTime < duration)
+        {
+            block.position = Vector3.Lerp(block.position, targetPosition, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        block.position = targetPosition;
+        GameManager[i, j - x] = GameManager[i, j];
+        GameManager[i, j] = ColorState.None;
+        BlockFallen.Play();
+    }
+
 
     private void detectClear()
     {
@@ -156,17 +160,10 @@ public class GameController : MonoBehaviour
             {
                 if (GameManager[i, j] != ColorState.None)
                 {
-                    if (detectFive(i, j))
+                    if (detectFive(i, j) || detectFour(i, j) || detectThree(i, j))
                     {
-                        Point += PointFive;
-                    }
-                    else if (detectFour(i, j))
-                    {
-                        Point += PointFour;
-                    }
-                    else if (detectThree(i, j))
-                    {
-                        Point += PointThree;
+                        // A match was found, so trigger block clearing
+                        Point += (detectFive(i, j) ? PointFive : (detectFour(i, j) ? PointFour : PointThree));
                     }
                 }
             }
@@ -181,11 +178,8 @@ public class GameController : MonoBehaviour
             {
                 if (CancelManager[i, j] == true)
                 {
-                    //Debug.Log(i + "," + j);
-                    BlockClear.Play();
                     Destroy(Grid[i, j].gameObject);
                     Grid[i, j] = null;
-                    //Debug.Log(i + "," + j);
                     GameManager[i, j] = ColorState.None;
                     CancelManager[i, j] = false;
                     m_isClear = true;
@@ -194,39 +188,18 @@ public class GameController : MonoBehaviour
         }
         if (m_isClear)
         {
-            Debug.Log("Update");
             updateColor();
             m_isClear = false;
         }
     }
+
 
     public static void GameOver()
     {
 
     }
 
-    private IEnumerator MoveBlockDown(int i, int j, int x,Transform origin)
-    {
-        Transform block = origin;
-        Vector3 targetPosition = block.position + Vector3.down * x;
-        float duration = 0.5f; // 移动的时间
-        float elapsedTime = 0;
-
-        while (elapsedTime < duration)
-        {
-            block.position = Vector3.Lerp(block.position, targetPosition, (elapsedTime / duration));
-            elapsedTime += Time.deltaTime;
-            yield return null; // 等待下一帧
-        }
-
-        block.position = targetPosition; // 确保位置最终精确
-        
-        GameManager[i, j - x] = GameManager[i, j];
-        GameManager[i, j] = ColorState.None;
-        Debug.Log($"({i},{j}) move to ({i},{j - x})");
-        BlockFallen.Play();
-    }
-
+   
     private bool detectThree(int row, int col)
     {
         if (detectThreeCol(row, col))
