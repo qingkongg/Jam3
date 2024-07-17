@@ -30,11 +30,16 @@ public class GameController : MonoBehaviour
     //�������
     public static Transform[,] Grid ;
 
-    private List<List<ColorState>> m_GameManager;
-    private List<List<bool>> m_CancelManager;
+    public static ColorState[,] GameManager;
+    public static bool[,] CancelManager;
 
     //��Ϸ���еĲ���
     public float CD = 30;//��غ����������һ��
+
+    public int Point = 0;
+    public int PointThree = 4;
+    public int PointFour = 10;
+    public int PointFive = 16;
 
 
     public static bool Isfallen = false;
@@ -46,30 +51,24 @@ public class GameController : MonoBehaviour
         colNum = Height;
         rowNum = Width;
         Grid = new Transform[rowNum, colNum];
-        //���ȳ�ʼ��ɾ�������������ɫ��¼����Ϸ����������
-        m_CancelManager = new List<List<bool>>();
-        for(int row = 0;row < rowNum; row++)
+        GameManager = new ColorState[rowNum, colNum];
+        CancelManager = new bool[rowNum, colNum];
+        for (int i = 0; i < rowNum; i++)
         {
-            List<bool> list = new List<bool>();
-            for(int col = 0;col < colNum; col++)
+            for (int j = 0; j < colNum; j++)
             {
-                list.Add(false);
+                CancelManager[i, j] = false;
             }
-            m_CancelManager.Add(list);
         }
 
-        m_GameManager = new List<List<ColorState>>();
-        for (int row = 0; row < rowNum; row++)
+        for (int i = 0; i < rowNum; i++)
         {
-            List<ColorState> list = new List<ColorState>();
-            for (int col = 0; col < colNum; col++)
+            for (int j = 0; j < colNum; j++)
             {
-                list.Add(ColorState.None);
+                GameManager[i,j] = ColorState.None; 
             }
-            m_GameManager.Add(list);
         }
 
-        //��ʼ��һ������
         RandomGenerateBlock();
     }
 
@@ -89,6 +88,9 @@ public class GameController : MonoBehaviour
                 m_timer=0;
             }
         }
+        updateColor();
+        detectClear();
+        clearGrid();
     }
 
     private void RandomGenerateBlock()
@@ -107,5 +109,216 @@ public class GameController : MonoBehaviour
     public static bool IsInside(Vector2 v)
     {
         return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum - 1  && (int)v.y >= Y_Offset );
+    }
+
+    //如果下方为空，则往下边走
+    private void updateColor()
+    {
+        for(int i = 1; i < rowNum; i++)
+        {
+            for (int j = 0;j < colNum; j++)
+            {
+                if (Grid[i-1,j] == null)
+                {
+                    Grid[i-1, j] = Grid[i, j];
+                    Grid[i,j] = null;
+                    GameManager[i -1, j] = GameManager[i, j];
+                    GameManager[i, j] = ColorState.None;
+                }
+            }
+        }
+    }
+
+    private void detectClear()
+    {
+        for(int i = 0;i < rowNum; i++)
+        {
+            for(int j = 0;j < colNum; j++)
+            {
+                if (GameManager[i,j] != ColorState.None)
+                {
+                    if (detectFive(i, j))
+                    {
+                        Point += PointFive;
+                    }
+                    else if (detectFour(i, j))
+                    {
+                        Point += PointFour;
+                    }
+                    else if(detectThree(i, j))
+                    {
+                        Point += PointThree;
+                    }
+                }
+            }
+        }
+    }
+
+    private void clearGrid()
+    {
+        for (int i = 0; i < rowNum; i++)
+        {
+            for (int j = 0; j < colNum; j++)
+            {
+                if (CancelManager[i,j] == true)
+                {
+                    Destroy(Grid[i,j].gameObject);
+                    Grid[i,j] = null ;
+                    GameManager[i, j] = ColorState.None;
+                    CancelManager[i,j] = false;
+                }
+            }
+        }
+    }
+
+    public static void GameOver()
+    {
+
+    }
+
+    private bool detectThree(int row,int col)
+    {
+        if (detectThreeCol(row, col))
+        {
+            if (detectThreeRow(row, col))
+            {
+                CancelManager[row,col] = true;
+                CancelManager[row,col + 1] = true;
+                CancelManager[row,col + 2] = true;
+                Point += PointThree;
+            }
+            else if (detectThreeRow(row + 1, col))
+            {
+                CancelManager[row + 1, col] = true;
+                CancelManager[row + 1, col + 1] = true;
+                CancelManager[row + 1, col + 2] = true;
+                Point += PointThree;
+            }
+            else if(detectThreeRow(row + 2, col))
+            {
+                CancelManager[row + 2, col] = true;
+                CancelManager[row + 2, col + 1] = true;
+                CancelManager[row + 2, col + 2] = true;
+                Point += PointThree;
+            }
+            CancelManager[row, col] = true;
+            CancelManager[row + 1, col] = true;
+            CancelManager[row + 2, col] = true;
+            Point += PointThree;
+            return true;
+        }
+        if(detectThreeRow(row, col))
+        {
+            if (detectThreeCol(row, col))
+            {
+                CancelManager[row, col] = true;
+                CancelManager[row + 1, col] = true;
+                CancelManager[row + 2, col] = true;
+                Point += PointThree;
+            }
+            else if (detectThreeRow(row, col + 1))
+            {
+                CancelManager[row, col + 1] = true;
+                CancelManager[row + 1, col + 1] = true;
+                CancelManager[row + 2, col + 1] = true;
+                Point += PointThree;
+            }
+            else if (detectThreeCol(row, col + 2))
+            {
+                CancelManager[row, col + 2] = true;
+                CancelManager[row + 1, col + 2] = true;
+                CancelManager[row + 2, col + 2] = true;
+                Point += PointThree;
+            }
+            CancelManager[row, col] = true;
+            CancelManager[row + 1, col] = true;
+            CancelManager[row + 2, col] = true;
+            return true;
+        }
+        return false;
+    }
+
+    private bool detectThreeRow(int row,int col)
+    {
+        if (col + 2 < colNum)
+        {
+            if (GameManager[row, col] == GameManager[row, col + 1] && GameManager[row, col] == GameManager[row, col + 2]) 
+            { 
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool detectThreeCol(int row,int col)
+    {
+        if (row + 2 < rowNum)
+        {
+            if (GameManager[row, col] == GameManager[row + 1, col] && GameManager[row, col] == GameManager[row + 2, col]) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool detectFour(int row,int col)
+    {
+        if (col + 3 < colNum)
+        {
+            if (GameManager[row, col] == GameManager[row, col + 1] && GameManager[row, col] == GameManager[row, col + 2] && GameManager[row, col] == GameManager[row, col + 3] )
+            {
+                Point += 8;
+                CancelManager[row, col] = true;
+                CancelManager[row, col + 1] = true;
+                CancelManager[row, col + 2] = true;
+                CancelManager[row, col + 3] = true;
+                return true;
+            }
+        }
+        if (row + 3 < rowNum)
+        {
+            if (GameManager[row, col] == GameManager[row + 1, col] && GameManager[row, col] == GameManager[row + 2, col] && GameManager[row, col] == GameManager[row + 3, col])
+            {
+                Point += 8;
+                CancelManager[row, col] = true;
+                CancelManager[row + 1, col] = true;
+                CancelManager[row + 2, col] = true;
+                CancelManager[row + 3, col] = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool detectFive(int row,int col)
+    {
+        if(col + 4 < colNum)
+        {
+            if (GameManager[row,col] == GameManager[row,col+1] && GameManager[row, col] == GameManager[row, col + 2]&&GameManager[row, col] == GameManager[row, col + 3]&&GameManager[row, col] == GameManager[row, col + 4])
+            {
+                Point += 20;
+                CancelManager[row, col] = true;
+                CancelManager[row, col + 1] = true;
+                CancelManager[row, col + 2] = true;
+                CancelManager[row, col + 3] = true;
+                CancelManager[row, col + 4] = true;
+                return true;
+            }
+        }
+        if (row + 4 < rowNum)
+        {
+            if (GameManager[row, col] == GameManager[row + 1, col] && GameManager[row, col] == GameManager[row + 2, col] && GameManager[row, col] == GameManager[row + 3, col] && GameManager[row, col] == GameManager[row + 4, col])
+            {
+                Point += 20;
+                CancelManager[row, col] = true;
+                CancelManager[row + 1, col] = true;
+                CancelManager[row + 2, col] = true;
+                CancelManager[row + 3, col] = true;
+                CancelManager[row + 4, col] = true;
+                return true;
+            }
+        }
+        return false;
     }
 }

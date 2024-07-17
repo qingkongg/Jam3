@@ -1,3 +1,4 @@
+using Colorstate;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class GroupController : MonoBehaviour
     private float m_theLastFall = 0;
 
     bool m_isActive = true;
+    bool m_updateColor = false;
     void Start()
     {
         GameController.Isfallen = false;
@@ -107,6 +109,10 @@ public class GroupController : MonoBehaviour
             }
         }
     }
+    else if (!m_isActive && !m_updateColor) { 
+            GetBlockColors();
+            m_updateColor = true;   
+        }
 }
 
     bool IsValidPos(Transform proposedTransform)
@@ -151,6 +157,32 @@ public class GroupController : MonoBehaviour
         {
             Vector2 v = GameController.RoundVec2(child.transform.position);
             GameController.Grid[Mathf.RoundToInt(v.x - GameController.X_Offset), Mathf.RoundToInt(v.y - GameController.Y_Offset)] = child;
+        }
+    }
+
+    //落地后同步更新到记录颜色的GameManager颜色数组
+    void GetBlockColors()
+    {
+        if (!m_isActive)
+        {
+            foreach (Transform child in transform)
+            {
+                BlockController blockController = child.GetComponent<BlockController>();
+                if (blockController != null)
+                {
+                    ColorState colorState = blockController.Color;
+                    Vector2 pos = GameController.RoundVec2(child.transform.position);
+                    if ((int)pos.y < GameController.rowNum)
+                    {
+                        GameController.GameManager[(int)pos.x, (int)pos.y] = colorState;
+                    }
+                    else if((int)pos.y >= GameController.rowNum)
+                    {
+                        GameController.GameOver();
+                    }
+                    
+                }
+            }
         }
     }
 }
