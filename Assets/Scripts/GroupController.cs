@@ -189,10 +189,11 @@ public class GroupController : MonoBehaviour
                 {
                     ColorState colorState = blockController.Color;
                     Vector2 pos = GameController.RoundVec2(child.transform.position);
+                    Debug.Log((int)pos.x + (int)pos.y);
                     if ((int)pos.y < GameController.colNum)
                     {
                         GameController.GameManager[(int)pos.x, (int)pos.y] = colorState;
-                        Debug.Log("position" + pos + "is" + colorState);
+                        //Debug.Log("position" + pos + "is" + colorState);
                     }
                     else if((int)pos.y >= GameController.colNum)
                     {
