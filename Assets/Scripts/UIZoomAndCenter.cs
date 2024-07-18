@@ -5,6 +5,7 @@ public class UIZoomAndCenter : MonoBehaviour
 {
     public RectTransform uiElement; // 要控制的UI元素
     public Image blackOverlay; // 黑色遮罩
+    public Image gameOverObj; // 游戏结束UI
     public float targetScale = 1f; // 目标缩放比例
     public float duration = 2f; // 动画持续时间
 
@@ -32,6 +33,7 @@ public class UIZoomAndCenter : MonoBehaviour
 
         // 确保黑色遮罩一开始是全黑
         blackOverlay.color = new Color(0, 0, 0, 0);
+        gameOverObj.color = new Color(255, 255, 255, 0);
     }
 
     void Update()
@@ -46,7 +48,8 @@ public class UIZoomAndCenter : MonoBehaviour
             uiElement.localPosition = Vector3.Lerp(initialPosition, Vector3.zero, t);
 
             // 插值方式平滑改变黑色遮罩的透明度
-            blackOverlay.color = new Color(0, 0, 0,t);
+            blackOverlay.color = new Color(0, 0, 0, t);
+            gameOverObj.color = new Color(255, 255, 255, t);
 
             if (t >= 1f)
             {
