@@ -15,16 +15,21 @@ public class HitCountDisplay : MonoBehaviour
 
     void Update()
     {
-        m_Timer += Time.deltaTime;
-        m_Minute = Mathf.Floor(m_Timer / 60f);
-        m_Second = Mathf.Floor(m_Timer % 60f);
-        if (m_Second < 10f)
+        if (!GameController.m_isPaused)
         {
-            textComponent.text = "Score: " + GameController.Point + "\n" + "Time: " + m_Minute.ToString() + ":0" + m_Second.ToString();
-        }
-        else
-        {
-            textComponent.text = "Score: " + GameController.Point + "\n" + "Time: " + m_Minute.ToString() + ":" + m_Second.ToString();
+
+
+            m_Timer += Time.deltaTime;
+            m_Minute = Mathf.Floor(m_Timer / 60f);
+            m_Second = Mathf.Floor(m_Timer % 60f);
+            if (m_Second < 10f)
+            {
+                textComponent.text = "Score: " + GameController.Point + "\n" + "Time: " + m_Minute.ToString() + ":0" + m_Second.ToString();
+            }
+            else
+            {
+                textComponent.text = "Score: " + GameController.Point + "\n" + "Time: " + m_Minute.ToString() + ":" + m_Second.ToString();
+            }
         }
     }
 }

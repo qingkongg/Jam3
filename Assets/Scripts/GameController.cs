@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour
     public static bool m_isPaused = false;
     void Start()
     {
+        m_isOver = false;
+        m_isPaused = false;
         X_Offset = Xoffset;
         Y_Offset = Yoffset;
         colNum = Height;
@@ -75,8 +77,9 @@ public class GameController : MonoBehaviour
                 GameManager[i, j] = ColorState.None;
             }
         }
-        RandomGenerateBlock();
+        
         Point = 0;
+        BlockController.ColorRange = 4;
         for (int i = 0; i < rowNum; i++)
         {
             for (int j = 0; j < colNum; j++)
@@ -86,21 +89,22 @@ public class GameController : MonoBehaviour
                 if (Grid[i,j] != null)
                 {
                     Destroy(Grid[i,j].gameObject);
+                    Grid[i,j] = null;
                 }
             }
         }
+
+        RandomGenerateBlock();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (m_isOver)
+
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene(0);
-            }
+            SceneManager.LoadScene(0);
         }
         if(Point >= Stage1)
         {
@@ -129,9 +133,13 @@ public class GameController : MonoBehaviour
                 m_timer = 0;
             }
         }
-
-        detectClear();
-        clearGrid();
+        if (!m_isOver)
+        {
+            detectClear();
+            clearGrid();
+        }
+        
+        
     }
 
     private void RandomGenerateBlock()
@@ -243,6 +251,7 @@ public class GameController : MonoBehaviour
     {
         UIZoomAndCenter.StartAnimation();
         m_isOver = true;
+
     }
 
    

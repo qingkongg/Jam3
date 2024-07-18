@@ -7,6 +7,7 @@ public class EscQuit : MonoBehaviour
     public GameObject QuitButton;
     public GameObject ResumeButton;
     public bool isPause = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +35,6 @@ public class EscQuit : MonoBehaviour
             ResumeButton.SetActive(true);
             Time.timeScale = 0.0f;
         }
+
     }
 }
