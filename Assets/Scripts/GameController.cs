@@ -283,7 +283,6 @@ public class GameController : MonoBehaviour
             CancelManager[row, col] = true;
             CancelManager[row + 1, col] = true;
             CancelManager[row + 2, col] = true;
-            Point += PointThree;
             return true;
         }
         else if (detectThreeRow(row, col))
