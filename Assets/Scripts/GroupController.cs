@@ -2,6 +2,7 @@ using Colorstate;
     // Update is called once per frame
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,6 +23,7 @@ public class GroupController : MonoBehaviour
 
     bool m_isActive = true;
     bool m_isUpdated = false;
+    bool m_isValid = false;
     void Start()
     {
         GameController.Isfallen = false;
@@ -137,13 +139,14 @@ public class GroupController : MonoBehaviour
         {
             Vector2 pos = GameController.RoundVec2(child.transform.position + new Vector3(0.1f, 0.1f, 0));
             //Debug.Log("pos" + pos);
-            if (!GameController.IsInside(pos))
+            if (!GameController.IsInside(pos) && pos.y < GameController.colNum + GameController.Y_Offset)
             {
                 //Debug.Log("pos" + pos + "is not inside");
                 return false;
             }
             else if (GameController.IsInside(pos))
             {
+                m_isValid = true;
                 if (GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)] != null && GameController.Grid[(int)(pos.x - GameController.X_Offset), (int)(pos.y - GameController.Y_Offset)].parent != proposedTransform)
                 {
                     //Debug.Log("pos" + pos + "is not null");
@@ -172,7 +175,10 @@ public class GroupController : MonoBehaviour
         foreach (Transform child in transform)
         {
             Vector2 v = GameController.RoundVec2(child.transform.position);
-            GameController.Grid[Mathf.RoundToInt(v.x - GameController.X_Offset), Mathf.RoundToInt(v.y - GameController.Y_Offset)] = child;
+            if (Mathf.RoundToInt(v.x - GameController.X_Offset) < GameController.rowNum && Mathf.RoundToInt(v.y - GameController.Y_Offset) <= GameController.colNum)
+            {
+                GameController.Grid[Mathf.RoundToInt(v.x - GameController.X_Offset), Mathf.RoundToInt(v.y - GameController.Y_Offset)] = child;
+            }
         }
     }
 
@@ -189,15 +195,18 @@ public class GroupController : MonoBehaviour
                 {
                     ColorState colorState = blockController.Color;
                     Vector2 pos = GameController.RoundVec2(child.transform.position);
-                    Debug.Log((int)pos.x + (int)pos.y);
+                    //Debug.Log((int)pos.x + (int)pos.y);
+                    Debug.Log((int)pos.y + "+" + GameController.colNum);
                     if ((int)pos.y < GameController.colNum)
                     {
                         GameController.GameManager[(int)pos.x, (int)pos.y] = colorState;
                         //Debug.Log("position" + pos + "is" + colorState);
                     }
-                    else if((int)pos.y >= GameController.colNum)
+                    else if((int)pos.y >= GameController.colNum  && m_isValid && !GameController.m_isPaused)
                     {
+                        Debug.Log("1");
                         GameController.GameOver();
+                        GameController.m_isPaused = true;
                     }
                     
                 }

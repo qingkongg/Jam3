@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Colorstate;
 using static Unity.Collections.AllocatorManager;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -54,15 +55,16 @@ public class GameController : MonoBehaviour
 
     private bool m_isClear = false;
     private static bool m_isOver = false;
+    public static bool m_isPaused = false;
     void Start()
     {
         X_Offset = Xoffset;
         Y_Offset = Yoffset;
         colNum = Height;
         rowNum = Width;
-        Grid = new Transform[rowNum, colNum];
-        GameManager = new ColorState[rowNum, colNum];
-        CancelManager = new bool[rowNum, colNum];
+        Grid = new Transform[rowNum, colNum+1];
+        GameManager = new ColorState[rowNum, colNum+1];
+        CancelManager = new bool[rowNum, colNum + 1];
         for (int i = 0; i < rowNum; i++)
         {
             for (int j = 0; j < colNum; j++)
@@ -72,6 +74,19 @@ public class GameController : MonoBehaviour
             }
         }
         RandomGenerateBlock();
+        Point = 0;
+        for (int i = 0; i < rowNum; i++)
+        {
+            for (int j = 0; j < colNum; j++)
+            {
+                CancelManager[i, j] = false;
+                GameManager[i, j] = ColorState.None;
+                if (Grid[i,j] != null)
+                {
+                    Destroy(Grid[i,j].gameObject);
+                }
+            }
+        }
     }
 
 
@@ -82,7 +97,7 @@ public class GameController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-
+                SceneManager.LoadScene(0);
             }
         }
         if(Point >= 150)
@@ -91,7 +106,7 @@ public class GameController : MonoBehaviour
         }
 
         //��һ���Ѿ����
-        if (Isfallen)
+        if (Isfallen && !m_isPaused)
         {
             if (IsfallenAudio) 
             {
@@ -102,7 +117,7 @@ public class GameController : MonoBehaviour
             if (m_timer >= CD)//����CD
             {
                 RandomGenerateBlock();
-                Debug.Log("x");
+                //Debug.Log("x");
                 Isfallen = false;
                 m_timer = 0;
             }
@@ -127,7 +142,7 @@ public class GameController : MonoBehaviour
 
     public static bool IsInside(Vector2 v)
     {
-        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum - 1 && (int)v.y >= Y_Offset);
+        return ((int)v.x >= X_Offset && (int)v.x <= X_Offset + rowNum - 1 && (int)v.y >= Y_Offset && (int)v.y < Y_Offset + colNum);
     }
 
     //如果下方为空，则往下边走
@@ -198,7 +213,7 @@ public class GameController : MonoBehaviour
         {
             for (int j = 0; j < colNum; j++)
             {
-                if (CancelManager[i, j] == true)
+                if (CancelManager[i, j] == true && Grid[i, j] != null)
                 {
                     Instantiate(ClearAnimation, Grid[i, j].position, Quaternion.identity);
                     Destroy(Grid[i, j].gameObject);
