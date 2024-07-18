@@ -12,6 +12,8 @@ public class GroupController : MonoBehaviour
     public GameObject position3;
     public GameObject position4;
 
+    public AudioSource FallenAudio;
+
     public float FallCD = 1;
 
     private float m_theLastFall = 0;
@@ -40,6 +42,7 @@ public class GroupController : MonoBehaviour
                 }
                 else
                 {
+                    FallenAudio.Play();
                     GameController.Isfallen = true;
                     //Debug.Log("Isfallen!" + IsValidPos(transform));
                     m_isActive = false;
@@ -83,6 +86,7 @@ public class GroupController : MonoBehaviour
                 else
                 {
                     //Debug.Log("TriggerDown IsFallen");
+                    FallenAudio.Play();
                     GameController.Isfallen = true;
                     m_isActive = false;
                     transform.position -= Vector3.down; // revert the position change
