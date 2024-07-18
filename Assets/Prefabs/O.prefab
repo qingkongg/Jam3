@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4154e3a583a1afe4c99563b760d3dbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FallenAudio: {fileID: 6174866986153338744, guid: 7b83cb675bde6af48abde556acd88b0b, type: 3}
+  HitAudio: {fileID: 1496522594010886046, guid: c31b05be14f2bc84bbf18ddf183faec4, type: 3}
   position1: {fileID: 6893263163865435861}
   position2: {fileID: 6461748137806862712}
   position3: {fileID: 1446676495976600509}
