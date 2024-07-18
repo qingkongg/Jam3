@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: I
       objectReference: {fileID: 0}
+    - target: {fileID: 917863016883519902, guid: cbc158c93c84b1c4fbb9bdca51446ecd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1880715877377552563, guid: cbc158c93c84b1c4fbb9bdca51446ecd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -387,10 +391,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6513827351907402637, guid: cbc158c93c84b1c4fbb9bdca51446ecd, type: 3}
-      propertyPath: FallenAudio
-      value: 
-      objectReference: {fileID: 6174866986153338744, guid: 7b83cb675bde6af48abde556acd88b0b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
