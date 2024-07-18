@@ -13,6 +13,7 @@ public class BlockController : MonoBehaviour
     public Sprite[] SpriteGreen;
     public Sprite[] SpriteCyan;
     public Sprite[] SpritePurple;
+    public Sprite[] SpriteGray;
 
     public static int ColorRange = 4;
     // Start is called before the first frame update

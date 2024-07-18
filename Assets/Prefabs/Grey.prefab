@@ -107,7 +107,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e1b41bb6fa8ab4e489f33afa8c6ff78a, type: 3}
   SpritePurple:
   - {fileID: 21300000, guid: db0d6ff6e8cdb434f880ccfd683fa8fe, type: 3}
-  Color: 0
+  SpriteGray:
+  - {fileID: 21300000, guid: c793cb6afab3bc44f8b6658874022e65, type: 3}
+  Color: 5
 --- !u!1 &7746122027510913657
 GameObject:
   m_ObjectHideFlags: 0

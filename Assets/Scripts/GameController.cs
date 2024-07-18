@@ -47,6 +47,8 @@ public class GameController : MonoBehaviour
     public int PointThree = 4;
     public int PointFour = 10;
     public int PointFive = 16;
+    public int Stage1 = 125;
+    public int Stage2 = 300;
 
 
     public static bool Isfallen = false;
@@ -100,9 +102,14 @@ public class GameController : MonoBehaviour
                 SceneManager.LoadScene(0);
             }
         }
-        if(Point >= 150)
+        if(Point >= Stage1)
         {
             BlockController.ColorRange = 5;
+        }
+
+        if(Point >= Stage2)
+        {
+            BlockController.ColorRange = 6;
         }
 
         //��һ���Ѿ����
