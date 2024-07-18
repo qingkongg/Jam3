@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     public AudioSource BlockClear;
     public AudioSource BlockFallen;
+    public GameObject ClearAnimation;
     // Start is called before the first frame update
     //��¼�˴���ʼλ�ÿ�ʼ��ƫ��
     public float Xoffset = 0;
@@ -178,6 +179,7 @@ public class GameController : MonoBehaviour
             {
                 if (CancelManager[i, j] == true)
                 {
+                    Instantiate(ClearAnimation, Grid[i, j].position, Quaternion.identity);
                     Destroy(Grid[i, j].gameObject);
                     Grid[i, j] = null;
                     GameManager[i, j] = ColorState.None;
