@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     public AudioSource BlockClear;
     public AudioSource BlockFallen;
+    public AudioSource FallenAudio;
     public GameObject ClearAnimation;
     // Start is called before the first frame update
     //��¼�˴���ʼλ�ÿ�ʼ��ƫ��
@@ -47,6 +48,7 @@ public class GameController : MonoBehaviour
 
 
     public static bool Isfallen = false;
+    public static bool IsfallenAudio = false;
     public float m_timer = 0;
 
     private bool m_isClear = false;
@@ -78,6 +80,11 @@ public class GameController : MonoBehaviour
         //��һ���Ѿ����
         if (Isfallen)
         {
+            if (IsfallenAudio) 
+            {
+                FallenAudio.Play();
+                IsfallenAudio = false ;
+            }
             m_timer += Time.deltaTime;
             if (m_timer >= CD)//����CD
             {
@@ -134,6 +141,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator MoveBlockDown(int i, int j, int x, Transform origin)
     {
+        BlockClear.Play();
         Transform block = origin;
         Vector3 targetPosition = block.position + Vector3.down * x;
         float duration = 0.2f;

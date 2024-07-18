@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 public class GroupController : MonoBehaviour
 {
-    public AudioSource FallenAudio;
     public AudioSource HitAudio;
 
     public GameObject position1;
@@ -45,7 +44,7 @@ public class GroupController : MonoBehaviour
                 }
                 else
                 {
-                    FallenAudio.Play();
+                    GameController.IsfallenAudio = true;
                     GameController.Isfallen = true;
                     //Debug.Log("Isfallen!" + IsValidPos(transform));
                     m_isActive = false;
@@ -91,7 +90,7 @@ public class GroupController : MonoBehaviour
                 else
                 {
                     //Debug.Log("TriggerDown IsFallen");
-                    FallenAudio.Play();
+                    GameController.IsfallenAudio = true;
                     GameController.Isfallen = true;
                     m_isActive = false;
                     transform.position -= Vector3.down; // revert the position change
