@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public AudioSource BlockFallen;
     public AudioSource FallenAudio;
     public GameObject ClearAnimation;
+    public UIZoomAndCenter UIController;
     // Start is called before the first frame update
     //��¼�˴���ʼλ�ÿ�ʼ��ƫ��
     public float Xoffset = 0;
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour
     public float m_timer = 0;
 
     private bool m_isClear = false;
+    private static bool m_isOver = false;
     void Start()
     {
         X_Offset = Xoffset;
@@ -76,6 +78,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_isOver)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+
+            }
+        }
+        if(Point >= 150)
+        {
+            BlockController.ColorRange = 5;
+        }
 
         //��һ���Ѿ����
         if (Isfallen)
@@ -206,7 +219,8 @@ public class GameController : MonoBehaviour
 
     public static void GameOver()
     {
-
+        UIZoomAndCenter.StartAnimation();
+        m_isOver = true;
     }
 
    

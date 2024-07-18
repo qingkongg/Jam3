@@ -579,6 +579,11 @@ MonoBehaviour:
   m_Text: 'Score: 12345
 
     Time: 67:89'
+--- !u!82 &377434844 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6174866986153338744, guid: 7b83cb675bde6af48abde556acd88b0b, type: 3}
+  m_PrefabInstance: {fileID: 349729386722348752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &573787590
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlockClear: {fileID: 20802650}
   BlockFallen: {fileID: 670216003}
+  FallenAudio: {fileID: 377434844}
   ClearAnimation: {fileID: 7383273773592242660, guid: e0cf48f40997dde4fafeae640b1f0234, type: 3}
   Xoffset: 0
   Yoffset: 0
@@ -1840,7 +1846,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646936567}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 667bb3433caa37a4da98af15fe028163, type: 3}

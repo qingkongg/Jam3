@@ -13,13 +13,15 @@ public class BlockController : MonoBehaviour
     public Sprite[] SpriteGreen;
     public Sprite[] SpriteCyan;
     public Sprite[] SpritePurple;
+
+    public static int ColorRange = 4;
     // Start is called before the first frame update
 
     private int colorindex;
     public ColorState Color;
     void Start()
     {
-        colorindex = Random.Range(1, 4);
+        colorindex = Random.Range(1, ColorRange);
         //��ʼ�������ɫ
         //MySpriteRenderer = GetComponent<SpriteRenderer>();
         Color = (ColorState)colorindex;
