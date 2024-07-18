@@ -98,7 +98,7 @@ public class GroupController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.J) && m_isActive)
+            if (Input.GetKeyDown(KeyCode.W) && m_isActive)
             {
                 // 先保存当前的旋转状态
                 Quaternion originalRotation = transform.rotation;
