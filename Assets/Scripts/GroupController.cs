@@ -7,12 +7,15 @@ using UnityEngine.UIElements;
 
 public class GroupController : MonoBehaviour
 {
+    public AudioSource FallenAudio;
+    public AudioSource HitAudio;
+
     public GameObject position1;
     public GameObject position2;
     public GameObject position3;
     public GameObject position4;
 
-    public AudioSource FallenAudio;
+
 
     public float FallCD = 1;
 
@@ -59,6 +62,7 @@ public class GroupController : MonoBehaviour
                 }
                 else
                 {
+                    HitAudio.Play();
                     transform.position -= Vector3.left; // revert the position change
                 }
             }
@@ -72,6 +76,7 @@ public class GroupController : MonoBehaviour
                 }
                 else
                 {
+                    HitAudio.Play();
                     transform.position -= Vector3.right; // revert the position change
                 }
             }
@@ -115,6 +120,7 @@ public class GroupController : MonoBehaviour
                 else
                 {
                     // 如果无效，恢复原来的旋转状态
+                    HitAudio.Play();
                     transform.rotation = originalRotation;
                 }
             }
